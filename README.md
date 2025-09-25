@@ -1,9 +1,9 @@
 # Calculator
 
-This repository contains two interfaces for a basic calculator:
+This repository ships two ways to interact with the calculator engine:
 
-- A C++ console application located in `main.cpp`.
-- A Streamlit web application in `streamlit_app.py` that can be deployed to Streamlit Community Cloud.
+- **C++ console app** (`main.cpp`) for terminal-based calculations.
+- **React single-page app** (`frontend/`) built with Vite that recreates a full calculator keypad for the browser.
 
 ## Running the console calculator
 
@@ -13,17 +13,30 @@ cmake --build build
 ./build/main
 ```
 
-## Running the Streamlit app locally
+## Running the React frontend locally
 
 ```bash
-pip install -r requirements.txt
-streamlit run streamlit_app.py
+cd frontend
+npm install
+npm run dev
 ```
 
-## Deploying to Streamlit Community Cloud
+The development server prints a local URL (typically `http://localhost:5173`) where you can interact with the calculator. The layout mirrors a physical numpad with dedicated buttons for the four core operations, percentage, sign toggle, clear entry, and all-clear controls.
 
-1. Push this repository to GitHub.
-2. Create a new Streamlit app and point it at the repository.
-3. Set `streamlit_app.py` as the entry point file.
+### Production build
 
-Once deployed, the page presents buttons for addition, subtraction, multiplication, division, and session controls so you can mirror the behaviour of the console calculator in your browser.
+To create a production bundle ready for static hosting services:
+
+```bash
+cd frontend
+npm install
+npm run build
+```
+
+The optimized assets are emitted to `frontend/dist/`. You can preview the built site locally with:
+
+```bash
+npm run preview
+```
+
+Deploy those static files to any host (such as Vercel, Netlify, or GitHub Pages) to serve the calculator web app.
