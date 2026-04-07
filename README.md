@@ -25,8 +25,10 @@ The development server prints a local URL (typically `http://localhost:5173`) wh
 
 - Core arithmetic with chained operations
 - Memory controls (`MC`, `MR`, `M+`, `M-`)
-- Unary tools for square root, squaring, reciprocal, and backspace
-- A running expression preview and recent-calculation history panel
+- Scientific tools for square root, squaring, reciprocal, factorial, trigonometry, logarithms, and backspace
+- Angle-mode switching (`Deg` / `Rad`) and precision-mode switching (`Compact` / `High`)
+- Constant injection for `π` and `e`
+- A running expression preview, clickable recent-calculation history panel, and session stats
 - Keyboard shortcuts for digits, operators, `Enter`, `Backspace`, `Esc`, and `Ctrl/Cmd + L`
 
 ### Production build

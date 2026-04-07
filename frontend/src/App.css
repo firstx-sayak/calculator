@@ -9,10 +9,10 @@
 }
 
 .calculator-shell {
-  width: min(1120px, 100%);
+  width: min(1180px, 100%);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.8fr);
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.8fr);
   gap: 1.5rem;
   align-items: stretch;
 }
@@ -45,7 +45,9 @@
 .history-header,
 .status-row,
 .memory-row,
-.shortcut-card {
+.shortcut-card,
+.control-ribbon,
+.mode-group {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -67,8 +69,39 @@
   color: #f8fafc;
 }
 
+.control-ribbon {
+  flex-wrap: wrap;
+  padding: 0.8rem 1rem;
+  border-radius: 20px;
+  background: rgba(2, 6, 23, 0.55);
+}
+
+.mode-group {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.control-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+}
+
+.chip {
+  min-width: 82px;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.9rem;
+}
+
+.chip.active {
+  border-color: rgba(250, 204, 21, 0.5);
+  background: linear-gradient(135deg, rgba(250, 204, 21, 0.26), rgba(249, 115, 22, 0.18));
+}
+
 .memory-badge {
-  min-width: 110px;
+  min-width: 132px;
   padding: 0.7rem 0.9rem;
   border-radius: 999px;
   text-align: center;
@@ -95,7 +128,8 @@
 .status-row,
 .history-header span,
 .history-empty,
-.shortcut-card p {
+.shortcut-card p,
+.stat-card span {
   color: #94a3b8;
 }
 
@@ -125,22 +159,29 @@
 }
 
 .memory-row,
-.utility-grid,
-.buttons {
+.constant-row,
+.scientific-grid,
+.buttons,
+.stats-grid {
   display: grid;
   gap: 0.8rem;
 }
 
-.memory-row {
+.memory-row,
+.constant-row {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.utility-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+.scientific-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .buttons {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stats-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 button {
@@ -166,6 +207,13 @@ button:active {
   box-shadow: none;
 }
 
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
 button.function,
 button.memory,
 button.subtle {
@@ -182,10 +230,6 @@ button.equals {
   color: #1c1917;
 }
 
-button.zero {
-  grid-column: span 2;
-}
-
 .history-list {
   list-style: none;
   margin: 0;
@@ -194,13 +238,22 @@ button.zero {
   gap: 0.75rem;
 }
 
-.history-list li {
-  padding: 0.85rem 1rem;
+.history-entry {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: 0.95rem 1rem;
   border-radius: 16px;
-  color: #e2e8f0;
+  text-align: left;
   background: rgba(30, 41, 59, 0.74);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  word-break: break-word;
+}
+
+.history-entry strong {
+  color: #f8fafc;
+  font-size: 1rem;
 }
 
 .history-empty {
@@ -208,6 +261,20 @@ button.zero {
   padding: 1rem;
   border-radius: 18px;
   background: rgba(15, 23, 42, 0.55);
+}
+
+.stat-card {
+  padding: 0.9rem;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-card strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: #f8fafc;
+  font-size: 1.25rem;
 }
 
 .shortcut-card {
@@ -223,8 +290,18 @@ button.zero {
   margin: 0;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 980px) {
   .calculator-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .scientific-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -242,9 +319,20 @@ button.zero {
 
   .calculator-topbar,
   .history-header,
-  .status-row {
+  .status-row,
+  .control-ribbon {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .mode-group {
+    width: 100%;
+  }
+
+  .memory-row,
+  .constant-row,
+  .buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   button {
