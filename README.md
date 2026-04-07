@@ -21,7 +21,13 @@ npm install
 npm run dev
 ```
 
-The development server prints a local URL (typically `http://localhost:5173`) where you can interact with the calculator. The layout mirrors a physical numpad with dedicated buttons for the four core operations, percentage, sign toggle, clear entry, and all-clear controls.
+The development server prints a local URL (typically `http://localhost:5173`) where you can interact with the calculator. The browser app now includes:
+
+- Core arithmetic with chained operations
+- Memory controls (`MC`, `MR`, `M+`, `M-`)
+- Unary tools for square root, squaring, reciprocal, and backspace
+- A running expression preview and recent-calculation history panel
+- Keyboard shortcuts for digits, operators, `Enter`, `Backspace`, `Esc`, and `Ctrl/Cmd + L`
 
 ### Production build
 
