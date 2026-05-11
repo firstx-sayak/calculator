@@ -14,6 +14,7 @@ def summarize_numbers(values: list[float]) -> dict[str, float]:
         "median": float(statistics.median(values)),
         "min": float(min(values)),
         "max": float(max(values)),
+        "range": float(max(values) - min(values)),
     }
 
     try:
@@ -28,4 +29,22 @@ def summarize_numbers(values: list[float]) -> dict[str, float]:
         summary["variance"] = 0.0
         summary["stdev"] = 0.0
 
+    quantiles = _inclusive_quartiles(values)
+    summary["q1"] = quantiles["q1"]
+    summary["q3"] = quantiles["q3"]
+    summary["iqr"] = quantiles["q3"] - quantiles["q1"]
+
     return summary
+
+
+def _inclusive_quartiles(values: list[float]) -> dict[str, float]:
+    ordered = sorted(values)
+    if len(ordered) == 1:
+        only_value = float(ordered[0])
+        return {"q1": only_value, "q3": only_value}
+
+    quartiles = statistics.quantiles(ordered, n=4, method="inclusive")
+    return {
+        "q1": float(quartiles[0]),
+        "q3": float(quartiles[2]),
+    }

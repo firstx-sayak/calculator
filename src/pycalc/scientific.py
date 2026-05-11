@@ -7,15 +7,25 @@ def scientific_operation(name: str, value: float, second_value: float | None = N
     operation = name.lower()
 
     unary_operations = {
+        "abs": abs,
+        "acos": math.acos,
+        "asin": math.asin,
+        "atan": math.atan,
+        "cbrt": lambda x: math.copysign(abs(x) ** (1.0 / 3.0), x),
+        "ceil": math.ceil,
         "sqrt": math.sqrt,
         "square": lambda x: x * x,
         "cube": lambda x: x * x * x,
+        "degrees": math.degrees,
+        "floor": math.floor,
         "sin": math.sin,
         "cos": math.cos,
         "tan": math.tan,
+        "log2": math.log2,
         "log10": math.log10,
         "ln": math.log,
         "exp": math.exp,
+        "radians": math.radians,
     }
 
     if operation in unary_operations:
@@ -25,6 +35,8 @@ def scientific_operation(name: str, value: float, second_value: float | None = N
         raise ValueError(f"Operation '{name}' requires a second value")
 
     binary_operations = {
+        "atan2": math.atan2,
+        "mod": math.fmod,
         "power": math.pow,
         "hypot": math.hypot,
     }

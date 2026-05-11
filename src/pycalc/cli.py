@@ -5,7 +5,7 @@ import json
 
 from .conversions import convert_unit
 from .expression import evaluate_expression
-from .finance import simple_interest
+from .finance import compound_interest, loan_payment, simple_interest
 from .scientific import scientific_operation
 from .statistics import summarize_numbers
 
@@ -35,6 +35,17 @@ def build_parser() -> argparse.ArgumentParser:
     finance_parser.add_argument("rate_percent", type=float)
     finance_parser.add_argument("time_years", type=float)
 
+    compound_parser = subparsers.add_parser("compound", help="Calculate compound interest")
+    compound_parser.add_argument("principal", type=float)
+    compound_parser.add_argument("rate_percent", type=float)
+    compound_parser.add_argument("time_years", type=float)
+    compound_parser.add_argument("--compounds-per-year", type=int, default=12)
+
+    loan_parser = subparsers.add_parser("loan", help="Estimate a fixed-rate monthly loan payment")
+    loan_parser.add_argument("principal", type=float)
+    loan_parser.add_argument("annual_rate_percent", type=float)
+    loan_parser.add_argument("years", type=float)
+
     return parser
 
 
@@ -60,6 +71,25 @@ def main() -> None:
 
     if args.command == "interest":
         print(json.dumps(simple_interest(args.principal, args.rate_percent, args.time_years), indent=2, sort_keys=True))
+        return
+
+    if args.command == "compound":
+        print(
+            json.dumps(
+                compound_interest(
+                    args.principal,
+                    args.rate_percent,
+                    args.time_years,
+                    args.compounds_per_year,
+                ),
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return
+
+    if args.command == "loan":
+        print(json.dumps(loan_payment(args.principal, args.annual_rate_percent, args.years), indent=2, sort_keys=True))
         return
 
     parser.error("Unknown command")
