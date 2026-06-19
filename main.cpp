@@ -15,6 +15,11 @@ double multiply(auto a,auto b)
 }
 double divide(auto a,auto b)
 {
+    if (b == 0)
+    {
+        cout<<"Error: division by zero is not allowed."<<endl;
+        return a;
+    }
     return a/b;
 }
 int main(){
@@ -30,7 +35,7 @@ int main(){
         while(true)
         {
             double b=0;
-            cout<<"press + to add, - to subtract, x to multiply, / to divide, r to restart, e to exit : ";
+            cout<<"press + to add, - to subtract, x to multiply, / to divide (no division by zero), r to restart, e to exit : ";
             cin>>ch;
             switch(ch)
             {
@@ -57,6 +62,8 @@ int main(){
                 case 'r': goto abc; 
                 break; 
                 case 'e': goto zxy;
+                break;
+                default: cout<<"invalid operator"<<endl;
                 break;
             }
         }
